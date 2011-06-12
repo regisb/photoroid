@@ -1,11 +1,2 @@
 got_email:
   email: dude@corp.com
-
-got_no_email:
-  email: null
-
-got_empty_email:
-  email: ""
-
-got_invalid_email:
-  email: pouac\,@gmail.com
