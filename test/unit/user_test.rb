@@ -6,6 +6,17 @@ class UserTest < ActiveSupport::TestCase
     assert true
   end
 
+  test "User with valid email and password" do
+    u = User.new
+    u.email = "dude2@corp.com"
+    u.password="1234"
+    assert_not_nil(u.salt, "User salt is nil")
+    assert(!u.hashed_password.blank?, "User hashed password is blank")
+    assert(ValidatesEmailFormatOf::validate_email_format(u.email).nil?, "User email #{u.email} is invalid")
+    assert(u.valid?)
+  end
+
+
   test "has email" do
     u = users(:got_email)
     assert_not_nil(u.email)
