@@ -3,7 +3,7 @@ require 'digest/sha2'
 class User < ActiveRecord::Base
   validates_presence_of :email
   validates_uniqueness_of :email
-  validates_email_format_of :email
+  validates :email, :email_format => {:on => :update}
 
   attr_accessor :password_confirmation
   validates_confirmation_of :password

@@ -1,2 +1,5 @@
 got_email:
   email: dude@corp.com
+
+got_invalid_email:
+  email: dude

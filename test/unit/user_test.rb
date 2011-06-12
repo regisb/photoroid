@@ -12,13 +12,13 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test "User with invalid email" do
-    u = User.new
-    u.email = "dude"
+    u = users(:got_invalid_email)#User.new
+    #u.email = "dude,gmail.com"
     u.password = "1234"
     assert(!u.save, "User with email #{u.email} should not be valid")
   end
 
-  test "user with duplicate email" do
+  test "User with duplicate email" do
     u1 = users(:got_email)
     u2 = User.new
     u2.email = u1.email
