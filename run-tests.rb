@@ -6,6 +6,5 @@ while (max == -1 || num <= max)
   result =`ruby -Itest test/unit/*.rb`
   puts `clear`
   puts "-------------- #{Time.now}\n#{result}"
-  sleep(2)
   num += 1
 end
