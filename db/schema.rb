@@ -17,6 +17,7 @@ ActiveRecord::Schema.define(:version => 20110613093549) do
     t.datetime "updated_at"
     t.string   "title"
     t.integer  "user_id"
+    t.string   "secret"
   end
 
   create_table "images", :force => true do |t|

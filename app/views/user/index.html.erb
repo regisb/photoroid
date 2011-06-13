@@ -7,14 +7,16 @@
   <% end %>
 </div>
 
-<div>
-  <%= link_to :controller => :album, :view => :new %>
-</div>
+<% if @user %>
+  <div>
+    <%= link_to "Create new album", :controller => :album, :action => :new %>
+  </div>
 
-<div id="albums">
-  <ul>
-    <% @user.albums.each do |album| %>
-      <%= link_to album_path(@album) %>
-    <% end %>
-  </ul>
-</div>
+  <div id="albums">
+    <ul>
+      <% @user.albums.each do |album| %>
+        <%= link_to album.title, :controller => :album, :action => :index %>
+      <% end %>
+    </ul>
+  </div>
+<% end %>

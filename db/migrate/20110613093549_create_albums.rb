@@ -5,6 +5,7 @@ class CreateAlbums < ActiveRecord::Migration
       t.timestamps
       t.string :title
       t.integer :user_id
+      t.string :secret
     end
 
     add_column :images, :album_id, :integer

@@ -1,0 +1,7 @@
+<div>
+  <%= form_tag(:controller => :album, :action => :new) do %>
+    <%= label_tag(:title, "Album title") %>
+    <%= text_field_tag(:title, "My Album", :size => 32) %><br />
+    <%= submit_tag "Save" %>
+  <% end %>
+</div>
