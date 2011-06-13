@@ -7,8 +7,7 @@ class CreateAlbums < ActiveRecord::Migration
       t.integer :user_id
     end
 
-      add_column :images, :album_id, :integer
-    end
+    add_column :images, :album_id, :integer
   end
 
   def self.down
