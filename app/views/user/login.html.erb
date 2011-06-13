@@ -1,0 +1,10 @@
+<div id="login">
+  <%= form_for(:user, @user, :url => {:action => "login"}) do |f| %>
+    <%= f.label(:email, "Email:") %><br />
+    <%= f.text_field(:email, :size => 32) %><br />
+    <br />
+    <%= f.label(:password, "Password:") %><br />
+    <%= f.password_field(:password, :size => 32) %><br />
+    <%= f.submit "Login" %>
+  <% end %>
+</div>
