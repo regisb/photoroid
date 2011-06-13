@@ -1,0 +1,11 @@
+<div id="signup">
+  <%= form_tag(:controller => :user, :action => :signup) do %>
+    <%= label_tag(:email, "Email:") %><br />
+    <%= text_field_tag(:email, "", :size => 32) %><br />
+    <%= label_tag(:password, "Password:") %><br />
+    <%= password_field_tag(:password, "", :size => 32) %><br />
+    <%= label_tag(:password_confirm, "Confirm your password:") %><br />
+    <%= password_field_tag(:password_confirm, "", :size => 32) %><br />
+    <%= submit_tag "Save" %>
+  <% end %>
+</div>
