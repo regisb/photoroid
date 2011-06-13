@@ -6,3 +6,15 @@
     <%= link_to "Log out", "user/logout" %>
   <% end %>
 </div>
+
+<div>
+  <%= link_to :controller => :album, :view => :new %>
+</div>
+
+<div id="albums">
+  <ul>
+    <% @user.albums.each do |album| %>
+      <%= link_to album_path(@album) %>
+    <% end %>
+  </ul>
+</div>
