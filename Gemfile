@@ -19,6 +19,7 @@ gem 'sqlite3'
 
 # Bundle the extra gems:
 gem 'validates_email_format_of', :git => 'git://github.com/alexdunae/validates_email_format_of.git'
+gem "paperclip", "~> 2.3"
 # gem 'bj'
 # gem 'nokogiri'
 # gem 'sqlite3-ruby', :require => 'sqlite3'
