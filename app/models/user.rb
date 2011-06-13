@@ -9,6 +9,8 @@ class User < ActiveRecord::Base
   validates_confirmation_of :password
   validate :password_non_blank
 
+  has_many :albums
+
   def self.authenticate(name, password)
     user = self.find_by_name(name)
     if user
