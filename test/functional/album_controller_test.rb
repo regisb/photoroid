@@ -20,4 +20,7 @@ class AlbumControllerTest < ActionController::TestCase
     assert_response :redirect
   end
 
+  test "Upload images" do
+
+  end
 end
