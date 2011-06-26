@@ -23,4 +23,8 @@ class AlbumController < ApplicationController
       end
     end
   end
+
+  def upload_images
+
+  end
 end

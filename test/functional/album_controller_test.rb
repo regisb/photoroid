@@ -5,4 +5,8 @@ class AlbumControllerTest < ActionController::TestCase
   test "the truth" do
     assert true
   end
+
+  test "Upload images" do
+
+  end
 end

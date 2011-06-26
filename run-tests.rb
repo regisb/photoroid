@@ -1,4 +1,4 @@
-
+#! /usr/bin/ruby
 
 max = (ARGV[0] || "-1").to_i
 num = 1
