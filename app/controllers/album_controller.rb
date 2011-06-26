@@ -14,7 +14,6 @@ class AlbumController < ApplicationController
       if request.post?
         # Create album
         @album = current_user.albums.build
-        puts "###################### Create album for user #{@album.user_id}, with title: #{params[:title]}"
         @album.title = params[:title]
         if @album.save
           redirect_to :controller => :album, :action => :index, :secret => @album.secret
@@ -25,6 +24,13 @@ class AlbumController < ApplicationController
   end
 
   def upload_images
-
+    if request.post?
+      @album = current_user.albums.find(params[:album][:id])
+      params[:images].each do |img_bin|
+        image = @album.images.build
+        image.img = img_bin
+        image.save
+      end
+    end
   end
 end
