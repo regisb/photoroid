@@ -1,1 +1,1 @@
-* Test controller/album/upload_images
+* Fix album controller by correctly writing the image file to the album. See https://github.com/thoughtbot/paperclip

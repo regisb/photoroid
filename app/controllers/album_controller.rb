@@ -25,12 +25,21 @@ class AlbumController < ApplicationController
 
   def upload_images
     if request.post?
-      @album = current_user.albums.find(params[:album][:id])
-      params[:images].each do |img_bin|
-        image = @album.images.build
-        image.img = img_bin
-        image.save
+      if current_user.albums.present?
+        @album = current_user.albums.find(params[:album][:id])
+        if @album
+          params[:images].each do |img_index, img_bin|
+            image = @album.images.build
+            # TODO write file correctly
+            image.img = img_bin
+            image.save
+          end
+          redirect_to :controller => :album, :action => :index, :secret => @album.secret
+          return
+        end
       end
     end
+    redirect_to :controller => :album, :action => :index
   end
+
 end
