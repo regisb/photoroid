@@ -1,0 +1,1 @@
+* Add date at which the photo was taken as optional, additional info in the model. See the process_photos.rb script.
