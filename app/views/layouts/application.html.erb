@@ -5,9 +5,27 @@
   <%= stylesheet_link_tag :all %>
   <%= javascript_include_tag :defaults %>
   <%= csrf_meta_tag %>
-</head>
-<body>
+  <link href="/uploadify/uploadify.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="/uploadify/swfobject.js"></script>
+  <script type="text/javascript" src="/uploadify/jquery.uploadify.v2.1.4.min.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      var uploadify_script_data = {};
+      var csrf_token = $('meta[name=csrf-token]').attr('content');
+      var csrf_param = $('meta[name=csrf-param]').attr('content');
+      uploadify_script_data[csrf_token] = encodeURI(csrf_param);
+      $('#file_upload').uploadify({
+        'uploader'  : '/uploadify/uploadify.swf',
+        'script'    : '/album/upload_stuff/',
+        'cancelImg' : '/uploadify/cancel.png',
+        'scriptData': uploadify_script_data
+      });
+    });
+  </script>
 
+  </head>
+  
+  <body>
 
   <% if flash[:notice] %>
     <!-- Flash notice -->

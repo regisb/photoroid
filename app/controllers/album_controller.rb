@@ -42,4 +42,13 @@ class AlbumController < ApplicationController
     redirect_to :controller => :album, :action => :index
   end
 
+  def test_upload
+  end
+
+  def test_upload2
+  end
+
+  def upload_stuff
+  end
+
 end
