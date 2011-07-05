@@ -6,6 +6,20 @@ class AlbumControllerTest < ActionController::TestCase
     assert true
   end
 
+  test "Display album" do
+    album = albums(:valid)
+    get :index, {:secret => album.secret}
+    assert_response :success
+    assert_not_nil assigns(:album)
+  end
+
+  test "Display album with invalid secret" do
+    album = albums(:valid)
+    get :index
+    assert_redirected_to "/user"
+    assert_response :redirect
+  end
+
   test "Upload images" do
     # Load test image
     f = File.open("test/fixtures/1up.jpg")
