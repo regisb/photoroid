@@ -1,5 +1,7 @@
+<!-- Upload images form -->
 <%= form_tag ({:controller => "album", :action => "upload_images"},
   :multipart => true) do %>
+  <%= hidden_field_tag "secret", @album.secret %>
   <%= file_field_tag "images", :multiple => "" %><br />
   <%= submit_tag "Upload images" %>
 <% end %>

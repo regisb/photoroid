@@ -26,8 +26,8 @@ class AlbumController < ApplicationController
   def upload_images
     if request.post?
       if current_user.albums.present?
-        @album = current_user.albums.find(params[:album][:id])
-        if @album
+        @album = Albums.find_by_secret(params[:secret])
+        if @album && params[:images].present?
           params[:images].each do |img_index, img_bin|
             image = @album.images.build
             # TODO write file correctly
