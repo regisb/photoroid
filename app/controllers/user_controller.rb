@@ -14,6 +14,7 @@ class UserController < ApplicationController
       end
       @user.password = params[:password]
       if @user.save
+        session[:user_id] = @user.id
         redirect_to(:controller => :user)
       else
         # Display errors
