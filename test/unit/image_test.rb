@@ -1,8 +1,16 @@
 require 'test_helper'
 
 class ImageTest < ActiveSupport::TestCase
-  # Replace this with your real tests.
-  test "the truth" do
-    assert true
+  test "Destroy all test images" do
+    Image.destroy_all
+  end
+  
+  test "EXIF tags should be written to image" do
+    f = File.open("test/fixtures/1up.jpg")
+    image = Image.new
+    image.img = f
+    image.save
+
+    assert_not_nil image.taken_at
   end
 end

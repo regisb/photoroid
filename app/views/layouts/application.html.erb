@@ -1,33 +1,33 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>BlingBling</title>
-  <%= stylesheet_link_tag :all %>
-  <%= javascript_include_tag :defaults %>
-  <%= csrf_meta_tag %>
-</head>
-<body>
-
-
-  <% if flash[:notice] %>
-    <!-- Flash notice -->
-    <p class="notice"><%= flash[:notice] %></p>
-  <% end %>
-  <% if flash[:error] %>
-    <!-- Flash error -->
-    <p class="error"><%= flash[:error] %></p>
-  <% end %>
+  <head>
+    <title>BlingBling</title>
+    <%= stylesheet_link_tag :all %>
+    <%= javascript_include_tag :defaults %>
+    <%= csrf_meta_tag %>
+  </head>
   
-  <% if @user && @user.errors.any? %>
-    <!-- User errors -->
-    <ul class="errors">
-      <% @user.errors.each do |attr, msg| %>
-        <li><%= attr.to_s.capitalize %>: <%= msg %></li>
-      <% end %>
-    </ul>
-  <% end %>
+  <body>
 
-  <%= yield %>
+    <% if flash[:notice] %>
+      <!-- Flash notice -->
+      <p class="notice"><%= flash[:notice] %></p>
+    <% end %>
+    <% if flash[:error] %>
+      <!-- Flash error -->
+      <p class="error"><%= flash[:error] %></p>
+    <% end %>
+    
+    <% if @user && @user.errors.any? %>
+      <!-- User errors -->
+      <ul class="errors">
+        <% @user.errors.each do |attr, msg| %>
+          <li><%= attr.to_s.capitalize %>: <%= msg %></li>
+        <% end %>
+      </ul>
+    <% end %>
 
-</body>
+    <%= yield %>
+
+  </body>
 </html>
