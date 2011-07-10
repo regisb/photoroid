@@ -9,25 +9,25 @@
   
   <body>
 
-  <% if flash[:notice] %>
-    <!-- Flash notice -->
-    <p class="notice"><%= flash[:notice] %></p>
-  <% end %>
-  <% if flash[:error] %>
-    <!-- Flash error -->
-    <p class="error"><%= flash[:error] %></p>
-  <% end %>
-  
-  <% if @user && @user.errors.any? %>
-    <!-- User errors -->
-    <ul class="errors">
-      <% @user.errors.each do |attr, msg| %>
-        <li><%= attr.to_s.capitalize %>: <%= msg %></li>
-      <% end %>
-    </ul>
-  <% end %>
+    <% if flash[:notice] %>
+      <!-- Flash notice -->
+      <p class="notice"><%= flash[:notice] %></p>
+    <% end %>
+    <% if flash[:error] %>
+      <!-- Flash error -->
+      <p class="error"><%= flash[:error] %></p>
+    <% end %>
+    
+    <% if @user && @user.errors.any? %>
+      <!-- User errors -->
+      <ul class="errors">
+        <% @user.errors.each do |attr, msg| %>
+          <li><%= attr.to_s.capitalize %>: <%= msg %></li>
+        <% end %>
+      </ul>
+    <% end %>
 
-  <%= yield %>
+    <%= yield %>
 
-</body>
+  </body>
 </html>

@@ -9,22 +9,20 @@ class AlbumControllerTest < ActionController::TestCase
   end
 
   test "Display album with invalid secret" do
-    album = albums(:valid)
     get :index
     assert_redirected_to "/user"
-    assert_response :redirect
   end
 
   test "Upload images" do
     # Load test image
     f = File.open("test/fixtures/1up.jpg")
-    album = albums(:album_1)
-    user = album.user
+    album = albums(:valid)
+    image_count = album.images.count
     # Post
     post :upload_images, 
-      {:album => {:id => album.id}, :images => {:image_1 => f.read}}, 
-      {:user_id => user.id}
+      {:album => {:secret => album.secret, :images => [f]}}
     # Veeeeeery ugly
-    assert_redirected_to "album/index?secret=#{album.secret}" 
+    assert_redirected_to "/album?secret=#{album.secret}" 
+    assert_equal image_count+1, album.images.count, "Number of images in album should have increased by 1"
   end
 end
