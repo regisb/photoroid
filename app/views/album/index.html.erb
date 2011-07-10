@@ -4,7 +4,7 @@
   <%= form_for @album, :url => {:action => :upload_images}, :html => {:multipart => true} do |f| %>
     <%= f.hidden_field :secret %>
     <%= f.file_field :images, :multiple => "" %>
-    <%= f.submit "PWEEEEEP!" %>
+    <%= f.submit "Upload images" %>
   <% end %>
 </div>
 
