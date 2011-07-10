@@ -5,13 +5,16 @@ class Image < ActiveRecord::Base
   belongs_to :album
 
   def add_exif_tags
-    # Sample date taken EXIF tag from image
-    exif_info = EXIFR::JPEG.new(self.img.path)
-    if exif_info.date_time.nil?
-      # Assign now's time if not found
-      update_attribute(:taken_at, Time.now)
-    else
-      update_attribute(:taken_at, exif_info.date_time)
+    if self.taken_at.nil?
+      # Sample date taken EXIF tag from image
+      exif_info = EXIFR::JPEG.new(self.img.path)
+      if exif_info.date_time.nil?
+        # Assign now's time if not found
+        update_attribute(:taken_at, Time.now)
+      else
+        update_attribute(:taken_at, exif_info.date_time)
+      end
     end
+    true
   end
 end
