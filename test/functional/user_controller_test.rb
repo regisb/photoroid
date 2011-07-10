@@ -1,6 +1,10 @@
 require 'test_helper'
 
 class UserControllerTest < ActionController::TestCase
+  test "Default route" do
+    assert_routing "/", {:controller => "user", :action => "index"}
+  end
+
   test "Signup" do
     user_count = User.count
     post :signup, 
@@ -14,7 +18,7 @@ class UserControllerTest < ActionController::TestCase
       "Number of users should have raised by one"
 
     assert_response :redirect
-    assert_redirected_to "/user"
+    assert_redirected_to "/"
     assert_equal user.id, session["user_id"]
   end
 end
