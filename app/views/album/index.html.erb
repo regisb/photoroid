@@ -1,15 +1,17 @@
 <h1><%= @album.title %></h1>
 
-<!-- form_for attempt -->
-<%= form_for @album, :url => {:action => :upload_images}, :html => {:multipart => true} do |f| %>
-  <%= f.hidden_field :secret %>
-  <%= f.file_field :images, :multiple => "" %>
-  <%= f.submit "PWEEEEEP!" %>
-<% end %>
+<div id="image_upload">
+  <%= form_for @album, :url => {:action => :upload_images}, :html => {:multipart => true} do |f| %>
+    <%= f.hidden_field :secret %>
+    <%= f.file_field :images, :multiple => "" %>
+    <%= f.submit "PWEEEEEP!" %>
+  <% end %>
+</div>
 
-<!-- Upload images form -->
-<%= form_tag({:controller => "album", :action => "upload_images"}, :multipart => true) do %>
-  <%= hidden_field_tag "secret", @album.secret %>
-  <%= file_field_tag "images", :multiple => "" %><br />
-  <%= submit_tag "Upload images" %>
-<% end %>
+<div id="thumbs">
+  <% @album.images.each do |image| %>
+    <span class="thumb">
+      <%= image_tag image.img.url(:thumb) %>
+    </span>
+  <% end %>
+</div>
