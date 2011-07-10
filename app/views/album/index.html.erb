@@ -10,8 +10,8 @@
 
 <div id="thumbs">
   <% @album.images.each do |image| %>
-    <span class="thumb">
-      <%= render :partial => "image/thumb", :object => image %>
-    </span>
+    <%= render :partial => "image/thumb", :object => image %>
   <% end %>
 </div>
+
+<div id="main-image">Initial text</div>
