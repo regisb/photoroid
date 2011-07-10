@@ -1,7 +1,6 @@
 class Image < ActiveRecord::Base
   has_attached_file :img, :styles => {:medium => "1024x1024>", :thumb => "100x100>"}
   validates_attachment_presence :img
-  #after_img_post_process :add_exif_tags
   after_save :add_exif_tags
   belongs_to :album
 
@@ -10,9 +9,9 @@ class Image < ActiveRecord::Base
     exif_info = EXIFR::JPEG.new(self.img.path)
     if exif_info.date_time.nil?
       # Assign now's time if not found
-      self.taken_at = Time.now
+      update_attribute(:taken_at, Time.now)
     else
-      self.taken_at = exif_info.date_time
+      update_attribute(:taken_at, exif_info.date_time)
     end
   end
 end

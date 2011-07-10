@@ -1,7 +1,7 @@
 class Album < ActiveRecord::Base
   validates_presence_of :title
   belongs_to :user
-  has_many :images
+  has_many :images, :order => :taken_at
 
   before_create :create_secret
   
