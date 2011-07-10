@@ -1,17 +1,4 @@
-<div id="user-form">
-  <% if @user.nil? %>
-    <%= link_to "Log In", "user/login" %>
-    <%= link_to "Sign Up", "user/signup" %>
-  <% else %>
-    <%= link_to "Log out", "user/logout" %>
-  <% end %>
-</div>
-
 <% if @user %>
-  <div>
-    <%= link_to "Create new album", :controller => :album, :action => :new %>
-  </div>
-
   <div id="albums">
     <ul>
       <% @user.albums.each do |album| %>
