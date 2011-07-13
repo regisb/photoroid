@@ -1,45 +1,40 @@
 class UserController < ApplicationController
-  def index
-    @user = current_user
+  def new
+    @user = User.new
+    render :controller => :user, :action => :edit
   end
 
-  def signup
+  def create
     if request.post?
       # Create new user
-      @user = User.new(:email => params[:email])
-      # Check confirmed password same as password
-      if params[:password] != params[:password_confirm]
-        @user.errors.add(:password, "Both password fields must be identical")
-        return
-      end
-      @user.password = params[:password]
+      @user = User.new(params[:user])
       if @user.save
         session[:user_id] = @user.id
-        redirect_to(:controller => :user)
-      else
+        redirect_to :controller => :album and return
+        # TODO
         # Display errors
-        return
       end
     end
+    render :controller => :user, :action => :edit
   end
 
   def login
     if request.post?
       # Authenticate user
-      if params[:user].nil?
-        redirect_to(:controller => :user)
-        return
+      if !params[:user].blank?
+        @user = User.authenticate(params[:user][:email], params[:user][:password])
+        if @user
+          session[:user_id] = @user.id
+          redirect_to(:controller => :album) and return
+        else
+          flash[:notice] = "Invalid email/password combination"
+        end
       end
-      @user = User.authenticate(params[:user][:email], params[:user][:password])
-      if @user
-        session[:user_id] = @user.id
-        redirect_to(:controller => :user, :action => :index)
-      else
-        flash[:notice] = "Invalid email/password combination"
-      end
-    else
-      # Display the login form
-      @user = User.new
     end
+  end
+
+  def logout
+    session[:user_id] = nil
+    redirect_to :controller => :album
   end
 end

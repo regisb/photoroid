@@ -1,6 +1,10 @@
 require 'test_helper'
 
 class AlbumControllerTest < ActionController::TestCase
+  test "Default route" do
+    assert_recognizes({:controller => "album", :action => "index"}, "/")
+  end
+
   test "Display album" do
     album = albums(:valid)
     get :index, {:secret => album.secret}
@@ -10,7 +14,7 @@ class AlbumControllerTest < ActionController::TestCase
 
   test "Display album with invalid secret" do
     get :index
-    assert_redirected_to "/user"
+    assert_redirected_to "/"
   end
 
   test "Upload images" do

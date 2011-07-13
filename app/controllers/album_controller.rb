@@ -1,5 +1,9 @@
 class AlbumController < ApplicationController
   def index
+    @user = current_user
+  end
+
+  def show
     @album = Album.find_by_secret(params[:secret])
     if @album.nil?
       redirect_to :controller => :user, :action => :index

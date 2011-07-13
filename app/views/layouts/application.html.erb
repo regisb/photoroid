@@ -15,11 +15,12 @@
     <div id="contents">
       <div id="user-menu">
         <% if session[:user_id] %>
+          <%= link_to "Log Out", :controller => :user, :action => :logout %>
           <%= link_to "Albums", :controller => :user %>
           <%= link_to "Create new album", :controller => :album, :action => :new %>
         <% else %>
           <%= link_to "Log In", :controller => :user, :action => :login %>
-          <%= link_to "Sign Up", :controller => :user, :action => :signup %>
+          <%= link_to "Sign Up", new_user_path() %>
         <% end %>
       </div>
 
