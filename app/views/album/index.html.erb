@@ -22,16 +22,10 @@
   <% @album.images.each do |image| %>
   <div class="thumb">
     <div>
-      <%= link_to(image_tag(image.img.url(:thumb)), 
-        {
-          :controller => :album,
-          :action => :async_big_image,
-          :image_id => image.id,
-          :album_secret => @album.secret
-        },
-        {
-          :remote => true
-        }) %>
+      <%= link_to image_tag(image.img.url(:thumb)),
+        image.img.url(:medium),
+        :rel => "colorbox"
+      %>
     </div>
     <p><%= image.taken_at %></p>
   </div>
