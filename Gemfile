@@ -22,6 +22,7 @@ gem 'validates_email_format_of', :git => 'git://github.com/alexdunae/validates_e
 gem "paperclip", "~> 2.3"
 gem "exifr"
 gem 'jquery-rails', '>= 0.2.6'
+gem 'rubyzip'
 # gem 'bj'
 # gem 'nokogiri'
 # gem 'sqlite3-ruby', :require => 'sqlite3'

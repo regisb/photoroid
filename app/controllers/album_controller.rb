@@ -37,6 +37,32 @@ class AlbumController < ApplicationController
     redirect_to :controller => :user, :action => :index
   end
 
+  def download
+    # Make request post
+    @album = Album.find_by_secret(params[:secret])
+    file_path = nil
+    tmp_file = nil
+    if @album 
+      images = @album.images
+      if !images.blank?
+        file_path = Album.create_archive_path
+        # Create temporary file
+        tmp_file = Tempfile.new(file_path, ".")
+        # Create zip file
+        Zip::ZipFile.open(file_path, Zip::ZipFile::CREATE){|z|
+          # Fill with images
+          images.each{|image|
+            z.add(image.img.path)
+          }
+        }
+      end
+    end
+    send_file tmp_file.path, :type => 'application/zip',
+      :disposition => 'attachment',
+      :filename => file_name 
+    t.close
+  end
+
   # Asynchronous calls
   def async_big_image
     @album = Album.find_by_secret(params[:album_secret])

@@ -1,5 +1,14 @@
 <h1><%= @album.title %></h1>
 
+<!-- Album administration links -->
+<div id="album-admin">
+  <%= link_to "Download album", 
+    :controller => :album, 
+    :action => :download,
+    :secret => @album.secret %>
+</div>
+
+<!-- Upload form --> 
 <div id="image_upload">
   <%= form_for @album, :url => {:action => :upload_images}, :html => {:multipart => true} do |f| %>
     <%= f.hidden_field :secret %>
@@ -8,6 +17,7 @@
   <% end %>
 </div>
 
+<!-- Thumbnail images -->
 <div id="thumbs">
   <% @album.images.each do |image| %>
   <span class="thumb">
@@ -27,4 +37,5 @@
   <% end %>
 </div>
 
+<!-- Main image -->
 <div id="main-image">Initial text</div>
