@@ -46,21 +46,20 @@ class AlbumController < ApplicationController
       images = @album.images
       if !images.blank?
         file_path = Album.create_archive_path
-        # Create temporary file
-        tmp_file = Tempfile.new(file_path, ".")
         # Create zip file
         Zip::ZipFile.open(file_path, Zip::ZipFile::CREATE){|z|
           # Fill with images
           images.each{|image|
-            z.add(image.img.path)
+            z.add(image.img_file_name, image.img.path)
           }
         }
       end
     end
-    send_file tmp_file.path, :type => 'application/zip',
+    file_name = @album.title + ".zip"
+    send_file file_path, :type => 'application/zip',
       :disposition => 'attachment',
       :filename => file_name 
-    t.close
+    File.delete(file_path)
   end
 
   # Asynchronous calls
