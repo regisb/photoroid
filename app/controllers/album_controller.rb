@@ -48,9 +48,13 @@ class AlbumController < ApplicationController
         file_path = Album.create_archive_path
         # Create zip file
         Zip::ZipFile.open(file_path, Zip::ZipFile::CREATE){|z|
+          # Add root directory to zipfile
+          z.mkdir(@album.title)
           # Fill with images
           images.each{|image|
-            z.add(image.img_file_name, image.img.path)
+            # Add image inside of root directory
+            z.add(File.join(@album.title, image.img_file_name), 
+                  image.img.path)
           }
         }
       end

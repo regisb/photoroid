@@ -8,35 +8,37 @@
   </head>
   
   <body>
-    <div id="user-menu">
-      <% if session[:user_id] %>
-        <%= link_to "Albums", :controller => :user %>
-        <%= link_to "Create new album", :controller => :album, :action => :new %>
-      <% else %>
-        <%= link_to "Log In", :controller => :user, :action => :login %>
-        <%= link_to "Sign Up", :controller => :user, :action => :signup %>
-      <% end %>
-    </div>
-
-    <% if flash[:notice] %>
-      <!-- Flash notice -->
-      <p class="notice"><%= flash[:notice] %></p>
-    <% end %>
-    <% if flash[:error] %>
-      <!-- Flash error -->
-      <p class="error"><%= flash[:error] %></p>
-    <% end %>
-    
-    <% if @user && @user.errors.any? %>
-      <!-- User errors -->
-      <ul class="errors">
-        <% @user.errors.each do |attr, msg| %>
-          <li><%= attr.to_s.capitalize %>: <%= msg %></li>
+    <div id="contents">
+      <div id="user-menu">
+        <% if session[:user_id] %>
+          <%= link_to "Albums", :controller => :user %>
+          <%= link_to "Create new album", :controller => :album, :action => :new %>
+        <% else %>
+          <%= link_to "Log In", :controller => :user, :action => :login %>
+          <%= link_to "Sign Up", :controller => :user, :action => :signup %>
         <% end %>
-      </ul>
-    <% end %>
+      </div>
 
-    <%= yield %>
+      <% if flash[:notice] %>
+        <!-- Flash notice -->
+        <p class="notice"><%= flash[:notice] %></p>
+      <% end %>
+      <% if flash[:error] %>
+        <!-- Flash error -->
+        <p class="error"><%= flash[:error] %></p>
+      <% end %>
+      
+      <% if @user && @user.errors.any? %>
+        <!-- User errors -->
+        <ul class="errors">
+          <% @user.errors.each do |attr, msg| %>
+            <li><%= attr.to_s.capitalize %>: <%= msg %></li>
+          <% end %>
+        </ul>
+      <% end %>
 
+      <%= yield %>
+
+    </div>
   </body>
 </html>
