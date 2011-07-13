@@ -1,6 +1,4 @@
-album_1:
-  user_id: 1
-
 valid:
+  id: 1
   title: My Magic Album
   secret: b4z6ixrpqsf88kq8ne60n5t7t792292r

@@ -1,11 +1,6 @@
 require 'test_helper'
 
 class AlbumTest < ActiveSupport::TestCase
-  # Replace this with your real tests.
-  test "the truth" do
-    assert true
-  end
-
   test "Create album" do
     user = users(:got_email)
     album = user.albums.build
