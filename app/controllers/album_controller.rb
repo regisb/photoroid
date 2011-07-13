@@ -36,4 +36,23 @@ class AlbumController < ApplicationController
     end
     redirect_to :controller => :user, :action => :index
   end
+
+  # Asynchronous calls
+  def async_big_image
+    @album = Album.find_by_secret(params[:album_secret])
+    if @album
+      @image = @album.images.find_by_id(params[:image_id])
+    end
+  end
+
+  def async_next_image
+    @album = Album.find_by_secret(params[:album_secret])
+    if @album
+      prev_img = @album.images.find_by_id(params[:image_id])
+      next_img = @album.images.first(:conditions => ["taken_at > ?", prev_img.taken_at], :order => "taken_at")
+      @image = next_img || @album.images.first
+    end
+    render "album/async_big_image"
+  end
+
 end
