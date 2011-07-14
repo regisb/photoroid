@@ -5,16 +5,30 @@ class AlbumControllerTest < ActionController::TestCase
     assert_recognizes({:controller => "album", :action => "index"}, "/")
   end
 
+  test "Show album with secret route" do
+    album = Album.first
+    assert_routing "album/show/#{album.secret}", {:controller => "album", :action => "show", :secret => album.secret}
+  end
+
+  test "Download album with secret route" do
+    album = Album.first
+    assert_routing "album/download/#{album.secret}", {:controller => "album", :action => "download", :secret => album.secret}
+  end
+
+  test "Upload image to album routing" do
+    assert_routing({:path => "album/upload_images", :method => :put}, {:controller => "album", :action => "upload_images"})
+  end
+
   test "Display album" do
     album = albums(:valid)
-    get :index, {:secret => album.secret}
+    get :show, {:secret => album.secret}
     assert_response :success
     assert_not_nil assigns(:album)
   end
 
   test "Display album with invalid secret" do
-    get :index
-    assert_redirected_to "/"
+    get :show, :secret => "abcd"
+    assert_redirected_to "/user"
   end
 
   test "Upload images" do
@@ -26,7 +40,7 @@ class AlbumControllerTest < ActionController::TestCase
     post :upload_images, 
       {:album => {:secret => album.secret, :images => [f]}}
     # Veeeeeery ugly
-    assert_redirected_to "/album?secret=#{album.secret}" 
+    assert_redirected_to "/album/show/#{album.secret}" 
     assert_equal image_count+1, album.images.count, "Number of images in album should have increased by 1"
   end
 end

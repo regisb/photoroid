@@ -4,15 +4,10 @@ class ImageController < ApplicationController
   end
 
   def destroy
-    if request.delete?
-      album = Album.find_by_secret(params[:album_secret])
-      if album
-        image = album.images.find_by_id(params[:image_id])
-        image.destroy if image
-      end
-    end
+    album = Album.find_by_secret(params[:album_secret])
+      album.images.destroy(params[:image_id])
     redirect_to :controller => :album, 
-      :action => :index, 
+      :action => :show,
       :secret => params[:album_secret]
   end
 end

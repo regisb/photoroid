@@ -2,7 +2,7 @@
   <div id="albums">
     <ul>
       <% @user.albums.each do |album| %>
-        <li><%= link_to album.title, "show/#{album.secret}" %></li>
+        <li><%= link_to album.title, {:controller => :album, :action => :show, :secret => album.secret} %></li>
       <% end %>
     </ul>
   </div>

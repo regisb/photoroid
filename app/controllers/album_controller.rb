@@ -13,18 +13,19 @@ class AlbumController < ApplicationController
 
   def new
     if current_user.nil?
-      redirect_to :controller => :user, :action => :index
+      redirect_to :controller => :user, :action => :show
     else
-      if request.post?
-        # Create album
-        @album = current_user.albums.build
-        @album.title = params[:title]
-        if @album.save
-          redirect_to :controller => :album, :action => :index, :secret => @album.secret
-          return
-        end
-      end
+      # Create album
+      @album = Album.new
     end
+  end
+
+  def create
+    @album = current_user.albums.build(params[:album])
+    if @album.save
+      redirect_to :controller => :album, :action => :show, :secret => @album.secret and return
+    end
+    render :controller => :album, :action => :new
   end
 
   def upload_images
@@ -35,10 +36,8 @@ class AlbumController < ApplicationController
         image.img = param
         image.save
       }
-      redirect_to :controller => :album, :action => :index, :secret => @album.secret
-      return
     end
-    redirect_to :controller => :user, :action => :index
+    redirect_to :controller => :album, :action => :show, :secret => @album.secret
   end
 
   def download
