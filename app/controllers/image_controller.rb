@@ -5,9 +5,10 @@ class ImageController < ApplicationController
 
   def destroy
     image = current_user.images.find(params[:id])
+    album = image.album
     image.destroy
     redirect_to :controller => :albums, 
       :action => :show,
-      :secret => params[:album_secret]
+      :secret => album.secret
   end
 end
