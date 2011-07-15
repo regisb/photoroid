@@ -10,6 +10,6 @@ class ImageControllerTest < ActionController::TestCase
     delete 'destroy', :id => image.id
     
     assert_nil Image.find_by_id(image.id)
-    assert_redirected_to "/#{album.secret}"
+    assert_redirected_to "#{album.secret}"
   end
 end

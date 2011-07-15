@@ -10,7 +10,7 @@ class UserController < ApplicationController
       @user = User.new(params[:user])
       if @user.save
         session[:user_id] = @user.id
-        redirect_to :controller => :album and return
+        redirect_to :controller => :albums and return
         # TODO
         # Display errors
       end
@@ -25,7 +25,7 @@ class UserController < ApplicationController
         @user = User.authenticate(params[:user][:email], params[:user][:password])
         if @user
           session[:user_id] = @user.id
-          redirect_to(:controller => :album) and return
+          redirect_to(:controller => :albums) and return
         else
           flash[:notice] = "Invalid email/password combination"
         end
@@ -35,6 +35,6 @@ class UserController < ApplicationController
 
   def logout
     session[:user_id] = nil
-    redirect_to :controller => :album
+    redirect_to :controller => :albums
   end
 end

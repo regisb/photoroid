@@ -19,7 +19,7 @@ class UserControllerTest < ActionController::TestCase
     assert_equal user_count+1, User.count, 
       "Number of users should have raised by one"
 
-    assert_redirected_to :controller => :album
+    assert_redirected_to :controller => :albums
     assert_equal user.id, session["user_id"]
   end
 end

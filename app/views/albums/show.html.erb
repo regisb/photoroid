@@ -1,0 +1,40 @@
+<h1><%= @album.title %></h1>
+
+<!-- Album administration links -->
+<div id="album-admin">
+  <ul>
+    <li>
+      <%= link_to "Download album", 
+        :controller => :albums,
+        :action => :download,
+        :secret => @album.secret %>
+    </li>
+    <li>
+      <%= link_to "Edit album", edit_album_path(@album, :secret => @album.secret) %>
+    </li>
+    <li>
+      <%= button_to "Delete album", 
+        album_path(@album), 
+        :confirm => "Are you sure you wish to delete this album?", 
+        :method => :delete %>
+    </li>
+  </ul>
+</div>
+
+<!-- Upload form --> 
+<div id="image_upload">
+  <%= form_for @album, :url => {:action => :upload_images}, :html => {:multipart => true} do |f| %>
+    <%= f.hidden_field :secret %>
+    <%= f.file_field :images, :multiple => "" %>
+    <%= f.submit "Upload images" %>
+  <% end %>
+</div>
+
+<!-- Thumbnail images -->
+<div id="thumbs">
+  <%= render :partial => "image/thumb", 
+    :collection => @album.images %>
+</div>
+
+<!-- Main image -->
+<div id="main-image"></div>

@@ -1,22 +1,22 @@
 require 'test_helper'
 
-class AlbumControllerTest < ActionController::TestCase
+class AlbumsControllerTest < ActionController::TestCase
   test "Default route" do
-    assert_recognizes({:controller => "album", :action => "index"}, "/")
+    assert_recognizes({:controller => "albums", :action => "index"}, "/")
   end
 
   test "Show album with secret route" do
     album = Album.first
-    assert_routing "#{album.secret}", {:controller => "album", :action => "show", :secret => album.secret}
+    assert_routing "#{album.secret}", {:controller => "albums", :action => "show", :secret => album.secret}
   end
 
   test "Download album with secret route" do
     album = Album.first
-    assert_routing "album/download/#{album.secret}", {:controller => "album", :action => "download", :secret => album.secret}
+    assert_routing "albums/download/#{album.secret}", {:controller => "albums", :action => "download", :secret => album.secret}
   end
 
   test "Upload image to album routing" do
-    assert_routing({:path => "album/upload_images", :method => :put}, {:controller => "album", :action => "upload_images"})
+    assert_routing({:path => "albums/upload_images", :method => :put}, {:controller => "albums", :action => "upload_images"})
   end
 
   test "Display album" do
@@ -39,7 +39,14 @@ class AlbumControllerTest < ActionController::TestCase
     # Post
     post :upload_images, 
       {:album => {:secret => album.secret, :images => [f]}}
-    assert_redirected_to :controller => "album", :action => "show", :secret => album.secret
+    assert_redirected_to :controller => "albums", :action => "show", :secret => album.secret
     assert_equal image_count+1, album.images.count, "Number of images in album should have increased by 1"
   end
+
+  test "Destroy album" do
+    a = albums(:valid)
+    delete 'destroy', :secret => a.secret
+    assert_nil Album.find_by_secret(a.secret)
+  end
+
 end
