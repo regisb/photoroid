@@ -1,21 +1,29 @@
 class UserController < ApplicationController
   def new
     @user = User.new
-    render :controller => :user, :action => :edit
+  end
+
+  def edit
+    @user = current_user
+  end
+
+  def update
+    if current_user.update_attributes(params[:user])
+      redirect_to :controller => :albums and return
+    else
+      render :controller => :user, :action => :edit
+    end
   end
 
   def create
-    if request.post?
-      # Create new user
-      @user = User.new(params[:user])
-      if @user.save
-        session[:user_id] = @user.id
-        redirect_to :controller => :albums and return
-        # TODO
-        # Display errors
-      end
+    @user = User.new(params[:user])
+    if @user.save
+      # Login
+      session[:user_id] = @user.id
+      redirect_to :controller => :albums and return
+    else
+      render :controller => :user, :action => :new
     end
-    render :controller => :user, :action => :edit
   end
 
   def login

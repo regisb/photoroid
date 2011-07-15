@@ -1,0 +1,13 @@
+<div id="user-menu">
+  <% if !current_user.blank? %>
+    <%= link_to "Create new album", :controller => :albums, :action => :new %>
+    <%= link_to "Albums", :controller => :albums %>
+    <%= link_to "Log Out", :controller => :user, :action => :logout %>
+    <%= link_to "Change email/password", edit_user_path(current_user) %>
+  <% else %>
+    <%= link_to "Log In", :controller => :user, :action => :login %>
+    <%= link_to "Sign Up", new_user_path() %>
+  <% end %>
+</div>
+
+

@@ -13,7 +13,7 @@ RailsSandbox::Application.routes.draw do
   resources :image
   
   # User
-  resources :user do
+  resources :user, :as => "users" do
     collection do
       get 'logout'
       get 'login'
