@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
   validate :password_non_blank
 
   has_many :albums
-
+  has_many :images, :through => :albums
 
   def self.authenticate(email, password)
     user = self.find_by_email(email)

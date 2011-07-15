@@ -1,8 +1,8 @@
 class Album < ActiveRecord::Base
-  validates_presence_of :title
   belongs_to :user
   has_many :images, :order => :taken_at
 
+  validates_presence_of :title
   before_create :create_secret
   
   # Return a random file name composed of 32 letters and numbers
