@@ -12,11 +12,11 @@ class AlbumsControllerTest < ActionController::TestCase
 
   test "Download album with secret route" do
     album = Album.first
-    assert_routing "album/download/#{album.secret}", {:controller => "albums", :action => "download", :secret => album.secret}
+    assert_routing "albums/download/#{album.secret}", {:controller => "albums", :action => "download", :secret => album.secret}
   end
 
   test "Upload image to album routing" do
-    assert_routing({:path => "album/upload_images", :method => :put}, {:controller => "albums", :action => "upload_images"})
+    assert_routing({:path => "albums/upload_images", :method => :put}, {:controller => "albums", :action => "upload_images"})
   end
 
   test "Display album" do

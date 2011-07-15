@@ -23,7 +23,7 @@ class AlbumsController < ApplicationController
     @album = Album.find_by_secret(params[:secret])
   end
 
-  def update
+  def create
     @album = current_user.albums.build(params[:album])
     if @album.save
       redirect_to :controller => :albums, :action => :show, :secret => @album.secret and return
@@ -44,8 +44,7 @@ class AlbumsController < ApplicationController
   end
 
   def destroy
-    album = Album.find_by_secret(params[:secret])
-    album.destroy!
+    Album.find_by_secret(params[:secret]).destroy
     redirect_to :controller => :albums, :action => :index
   end
 
