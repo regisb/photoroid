@@ -42,4 +42,11 @@ class AlbumControllerTest < ActionController::TestCase
     assert_redirected_to :controller => "album", :action => "show", :secret => album.secret
     assert_equal image_count+1, album.images.count, "Number of images in album should have increased by 1"
   end
+
+  test "Destroy album" do
+    a = albums(:valid)
+    delete 'destroy', :secret => a.secret
+    assert_nil Album.find_by_secret(a.secret)
+  end
+
 end

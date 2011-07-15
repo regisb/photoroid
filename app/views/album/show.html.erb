@@ -2,10 +2,20 @@
 
 <!-- Album administration links -->
 <div id="album-admin">
-  <%= link_to "Download album", 
-    :controller => :album, 
-    :action => :download,
-    :secret => @album.secret %>
+  <ul>
+    <li>
+      <%= link_to "Download album", 
+        :controller => :album, 
+        :action => :download,
+        :secret => @album.secret %>
+    </li>
+    <li>
+      <%= button_to "Delete album", 
+        album_path(@album), 
+        :confirm => "Are you sure you wish to delete this album?", 
+        :method => :delete %>
+    </li>
+  </ul>
 </div>
 
 <!-- Upload form --> 

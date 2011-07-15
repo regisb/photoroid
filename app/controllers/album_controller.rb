@@ -40,6 +40,12 @@ class AlbumController < ApplicationController
     redirect_to :controller => :album, :action => :show, :secret => @album.secret
   end
 
+  def destroy
+    album = Album.find_by_secret(params[:secret])
+    album.destroy!
+    redirect_to :controller => :album, :action => :index
+  end
+
   def download
     # Make request post
     @album = Album.find_by_secret(params[:secret])
