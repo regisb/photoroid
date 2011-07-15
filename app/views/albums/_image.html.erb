@@ -1,0 +1,12 @@
+<% if @image %>
+  <%= link_to(image_tag(@image.img.url(:medium)),
+    {
+      :controller => :albums,
+      :action => :async_next_image,
+      :image_id => @image.id,
+      :album_secret => @album.secret
+    },
+    {
+      :remote => true
+    }) %> 
+<% end %>
