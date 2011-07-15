@@ -1,10 +1,10 @@
 RailsSandbox::Application.routes.draw do
   # Album 
-  put 'album/upload_images'
-  match 'album/download/:secret' => 'album#download'
-  match ":secret" => "album#show", :secret => /([a-z]|[0-9]){32}/, :via => :get
-  match "album/:secret" => "album#destroy", :secret => /([a-z]|[0-9]){32}/, :via => :delete
-  resources :album
+  put 'albums/upload_images'
+  match 'albums/download/:secret' => 'albums#download'
+  match ":secret" => "albums#show", :secret => /([a-z]|[0-9]){32}/, :via => :get
+  match "albums/:secret" => "albums#destroy", :secret => /([a-z]|[0-9]){32}/, :via => :delete
+  resources :albums
   
   # Images
   resources :image
@@ -19,5 +19,5 @@ RailsSandbox::Application.routes.draw do
   end
 
   # Root
-  root :to => 'album#index'
+  root :to => 'albums#index'
 end

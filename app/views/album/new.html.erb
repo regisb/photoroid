@@ -1,7 +1,0 @@
-<div>
-  <%= form_for(@album, :url => {:controller => :album, :action => :create}) do |f| %>
-    <%= f.label(:title, "Album name") %>
-    <%= f.text_field(:title, :value => "My Album Magnifique", :size => 32) %><br />
-    <%= f.submit "Create" %>
-  <% end %>
-</div>
