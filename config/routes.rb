@@ -6,7 +6,6 @@ RailsSandbox::Application.routes.draw do
     put 'albums/upload_images'
     match 'albums/download/:secret' => 'albums#download'
     match ":secret" => "albums#show", :via => :get
-    match ":secret" => "albums#destroy", :via => :delete
     resources :albums
   end
   

@@ -50,7 +50,7 @@ class AlbumsController < ApplicationController
   end
 
   def destroy
-    current_user.albums.find_by_secret(params[:secret]).destroy
+    current_user.albums.find(params[:id]).destroy
     redirect_to :controller => :albums, :action => :index
   end
 
