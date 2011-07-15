@@ -10,6 +10,9 @@
         :secret => @album.secret %>
     </li>
     <li>
+      <%= link_to "Edit album", edit_album_path(@album, :secret => @album.secret) %>
+    </li>
+    <li>
       <%= button_to "Delete album", 
         album_path(@album), 
         :confirm => "Are you sure you wish to delete this album?", 
@@ -29,24 +32,8 @@
 
 <!-- Thumbnail images -->
 <div id="thumbs">
-  <% @album.images.each do |image| %>
-  <div class="thumb">
-    <div>
-      <%= link_to image_tag(image.img.url(:thumb)),
-        image.img.url(:medium),
-        :rel => "colorbox"
-      %>
-    </div>
-    <p><%= image.taken_at %></p>
-    <%= button_to "Delete", 
-      image_path(image, :image_id => image.id, :album_secret => @album.secret),
-      :method => :delete,
-      :confirm => "Are you sure you want to delete this image?",
-      :title => "Image deletion"
-    %>
-  </div>
-    <%= render :partial => "image/thumb", :object => image %>
-  <% end %>
+  <%= render :partial => "image/thumb", 
+    :collection => @album.images %>
 </div>
 
 <!-- Main image -->

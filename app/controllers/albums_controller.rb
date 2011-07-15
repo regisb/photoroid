@@ -5,10 +5,6 @@ class AlbumsController < ApplicationController
 
   def show
     @album = Album.find_by_secret(params[:secret])
-    if @album.nil?
-      redirect_to :controller => :user, :action => :index
-      return
-    end
   end
 
   def new
@@ -20,15 +16,25 @@ class AlbumsController < ApplicationController
   end
 
   def edit
-    @album = Album.find_by_secret(params[:secret])
+    @album = current_user.albums.find(params[:id])
+  end
+
+  def update
+    @album = current_user.albums.find(params[:id])
+    if @album.update_attributes(params[:album])
+      redirect_to :controller => :albums, :action => :show, :secret => @album.secret and return
+    else
+      render :controller => :albums, :action => :new
+    end
   end
 
   def create
     @album = current_user.albums.build(params[:album])
     if @album.save
       redirect_to :controller => :albums, :action => :show, :secret => @album.secret and return
+    else
+      render :controller => :albums, :action => :new
     end
-    render :controller => :albums, :action => :new
   end
 
   def upload_images
@@ -44,7 +50,7 @@ class AlbumsController < ApplicationController
   end
 
   def destroy
-    Album.find_by_secret(params[:secret]).destroy
+    current_user.albums.find_by_secret(params[:secret]).destroy
     redirect_to :controller => :albums, :action => :index
   end
 

@@ -1,8 +1,7 @@
 <div>
   <%= form_for(@album) do |f| %>
-    <%= f.hidden_field(:secret) %>
     <%= f.label(:title, "Album name") %>
-    <%= f.text_field(:title, :value => "My Album Magnifique", :size => 32) %><br />
+    <%= f.text_field(:title, :size => 32) %><br />
     <%= f.submit "Save" %>
   <% end %>
 </div>

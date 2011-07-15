@@ -1,10 +1,14 @@
 RailsSandbox::Application.routes.draw do
   # Album 
-  put 'albums/upload_images'
-  match 'albums/download/:secret' => 'albums#download'
-  match ":secret" => "albums#show", :secret => /([a-z]|[0-9]){32}/, :via => :get
-  match "albums/:secret" => "albums#destroy", :secret => /([a-z]|[0-9]){32}/, :via => :delete
-  resources :albums
+  constraints(:secret => /([a-z]|[0-9]){32}/) do
+    # This is stupid. Because I am not using ID but secret 
+    # I have to redefine all my routes
+    put 'albums/upload_images'
+    match 'albums/download/:secret' => 'albums#download'
+    match ":secret" => "albums#show", :via => :get
+    match ":secret" => "albums#destroy", :via => :delete
+    resources :albums
+  end
   
   # Images
   resources :image
