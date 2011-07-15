@@ -1,11 +1,14 @@
 RailsSandbox::Application.routes.draw do
+  # Album 
   put 'album/upload_images'
   match 'album/download/:secret' => 'album#download'
-  #match "album/:secret" => "album#show"
-  match "album/show/:secret" => "album#show"
+  match ":secret" => "album#show", :secret => /([a-z]|[0-9]){32}/
   resources :album
-
+  
+  # Images
   resources :image
+  
+  # User
   resources :user do
     collection do
       get 'logout'
@@ -13,7 +16,7 @@ RailsSandbox::Application.routes.draw do
       post 'login'
     end
   end
+
+  # Root
   root :to => 'album#index'
-  #match ':controller(/:action(/:id(.:format)))'
-  match 'show/:secret' => 'album#index'
 end

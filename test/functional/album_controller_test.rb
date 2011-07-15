@@ -7,7 +7,7 @@ class AlbumControllerTest < ActionController::TestCase
 
   test "Show album with secret route" do
     album = Album.first
-    assert_routing "album/show/#{album.secret}", {:controller => "album", :action => "show", :secret => album.secret}
+    assert_routing "#{album.secret}", {:controller => "album", :action => "show", :secret => album.secret}
   end
 
   test "Download album with secret route" do
@@ -27,7 +27,7 @@ class AlbumControllerTest < ActionController::TestCase
   end
 
   test "Display album with invalid secret" do
-    get :show, :secret => "abcd"
+    get :show, :secret => "abcdefghijklmnopqrstuvwxyz123456"
     assert_redirected_to "/user"
   end
 
@@ -39,8 +39,7 @@ class AlbumControllerTest < ActionController::TestCase
     # Post
     post :upload_images, 
       {:album => {:secret => album.secret, :images => [f]}}
-    # Veeeeeery ugly
-    assert_redirected_to "/album/show/#{album.secret}" 
+    assert_redirected_to :controller => "album", :action => "show", :secret => album.secret
     assert_equal image_count+1, album.images.count, "Number of images in album should have increased by 1"
   end
 end
