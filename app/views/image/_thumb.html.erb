@@ -1,11 +1,12 @@
 <div class="thumb">
-  <div>
+  <div style="<%= "border: 15px solid #{image_html_color(thumb.author_name)}" %>">
     <%= link_to image_tag(thumb.img.url(:thumb)),
       thumb.img.url(:medium),
-      :rel => "colorbox"
-    %>
+      :rel => "colorbox" %>
   </div>
-  <p><%= thumb.taken_at %></p>
+  <div class="image-tag">
+    <p><%= thumb.author_name %>, <%= thumb.taken_at.asctime%></p>
+  </div>
   <% if !current_user.blank? %>
     <%= button_to "Delete", 
       image_path(thumb, :image_id => thumb.id, :album_secret => @album.secret),

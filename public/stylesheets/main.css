@@ -13,3 +13,8 @@ body
   float: left;
   margin: 15px;
 }
+
+.thumb .image-tag
+{
+  text-align: center;
+}

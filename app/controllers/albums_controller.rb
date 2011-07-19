@@ -41,7 +41,7 @@ class AlbumsController < ApplicationController
     @album = Album.find_by_secret(params[:album][:secret])
     if @album && params[:album][:images]
       params[:album][:images].each{|param|
-        image = @album.images.build
+        image = @album.images.build(:author_name => params[:author_name])
         image.img = param
         image.save
       }

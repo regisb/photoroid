@@ -26,6 +26,7 @@ ActiveRecord::Schema.define(:version => 20110719083538) do
     t.integer  "img_file_size"
     t.datetime "img_updated_at"
     t.datetime "taken_at"
+    t.string   "author_name"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "album_id"
@@ -40,6 +41,7 @@ ActiveRecord::Schema.define(:version => 20110719083538) do
 
   create_table "users", :force => true do |t|
     t.string   "email"
+    t.string   "name"
     t.string   "hashed_password"
     t.string   "salt"
     t.datetime "created_at"

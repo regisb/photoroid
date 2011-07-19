@@ -7,6 +7,7 @@ class CreateImages < ActiveRecord::Migration
       t.integer :img_file_size
       t.datetime :img_updated_at
       t.datetime :taken_at
+      t.string :author_name
       t.timestamps
     end
   end

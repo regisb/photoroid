@@ -27,6 +27,7 @@
 <div id="image_upload">
   <%= form_for @album, :url => {:action => :upload_images}, :html => {:multipart => true} do |f| %>
     <%= f.hidden_field :secret %>
+    <%= text_field_tag :author_name, (if current_user.blank? then "" else current_user.name end) %>
     <%= f.file_field :images, :multiple => "" %>
     <%= f.submit "Upload images" %>
   <% end %>

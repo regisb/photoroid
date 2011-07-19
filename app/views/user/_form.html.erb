@@ -1,10 +1,12 @@
 <div id="user-edit">
   <%= form_for(@user) do |f| %>
-    <%= f.label(:email, "Email:") %><br />
+    <%= f.label(:name, "Name") %><br />
+    <%= f.text_field(:name, :size => 32) %><br />
+    <%= f.label(:email, "Email") %><br />
     <%= f.text_field(:email, :size => 32) %><br />
-    <%= f.label(:password, "Password:") %><br />
+    <%= f.label(:password, "Password") %><br />
     <%= f.password_field(:password, :size => 32) %><br />
-    <%= f.label(:password_confirmation, "Confirm your password:") %><br />
+    <%= f.label(:password_confirmation, "Confirm your password") %><br />
     <%= f.password_field(:password_confirmation, :size => 32) %><br />
     <%= f.submit "Save" %>
   <% end %>
