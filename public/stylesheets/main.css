@@ -12,9 +12,17 @@ body
 {
   float: left;
   margin: 15px;
+  text-align: center;
 }
 
-.thumb .image-tag
+.thumb .image
 {
-  text-align: center;
+  width: 250px;
+  height: 250px;
+  display: table;
+}
+.thumb .image span
+{
+  display: table-cell;
+  vertical-align: middle;
 }

@@ -1,8 +1,10 @@
 <div class="thumb">
-  <div style="<%= "border: 15px solid #{image_html_color(thumb.author_name)}" %>">
-    <%= link_to image_tag(thumb.img.url(:thumb)),
-      thumb.img.url(:medium),
-      :rel => "colorbox" %>
+  <div class="image" style="<%= "border: 8px solid #{image_html_color(thumb.author_name)}" %>">
+    <span>
+      <%= link_to image_tag(thumb.img.url(:thumb)),
+        thumb.img.url(:medium),
+        :rel => "colorbox" %>
+    </span>
   </div>
   <div class="image-tag">
     <p><%= thumb.author_name %>, <%= thumb.taken_at.asctime%></p>
