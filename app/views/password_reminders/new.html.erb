@@ -1,0 +1,9 @@
+<div id="password-reminder">
+  <p>Did you forget your password? Fill out this form and we will send you reset instructions by e-mail.</p>
+
+  <%= form_for(@password_reminder) do |f| %>
+    <%= label_tag "Email" %>
+    <%= text_field_tag :user_email %>
+    <%= f.submit "Reset Password" %>
+  <% end %>
+</div>

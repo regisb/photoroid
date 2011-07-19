@@ -21,6 +21,12 @@ RailsSandbox::Application.routes.draw do
     end
   end
 
+  # Password reminder
+  constraints(:secret => /([a-z]|[0-9]){32}/) do
+    match "password_reminders/:secret" => "password_reminders#show"
+    resources :password_reminders
+  end
+
   # Root
   root :to => 'albums#index'
 end

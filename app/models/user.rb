@@ -12,6 +12,7 @@ class User < ActiveRecord::Base
 
   has_many :albums
   has_many :images, :through => :albums
+  has_many :password_reminders
 
   def self.authenticate(email, password)
     user = self.find_by_email(email)

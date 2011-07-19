@@ -1,0 +1,2 @@
+module PasswordRemindersHelper
+end

@@ -11,7 +11,8 @@ class UserController < ApplicationController
     if current_user.update_attributes(params[:user])
       redirect_to :controller => :albums and return
     else
-      render :controller => :user, :action => :edit
+      @user = current_user
+      render "user/edit"
     end
   end
 
