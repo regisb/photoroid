@@ -38,10 +38,10 @@ class User < ActiveRecord::Base
 
   private
     def user_in_whitelist
-      ###########################################
-      # Define here the maximum number of users 
-      # that you wish to have in your application
-      ########################################### 
+      #######################################
+      # Define here the list of user emails
+      # that you accept in your application
+      ####################################### 
       whitelist = ["regisb@gmail.com", "regis@behmo.com"]
       ###########################################
       
@@ -60,7 +60,7 @@ class User < ActiveRecord::Base
     end
 
     def self.encrypted_password(password, salt)
-      string_to_hash = password + "4326587UI°FUI.M%P/Y874IO.M%?KLIF876" + salt
+      string_to_hash = password + Variables.get("password_salt") + salt
       Digest::SHA2.hexdigest(string_to_hash)
     end
 end
