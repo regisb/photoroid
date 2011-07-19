@@ -55,26 +55,45 @@ class AlbumsController < ApplicationController
   end
 
   def download
-    # Make request post
+
     @album = Album.find_by_secret(params[:secret])
     file_path = nil
     tmp_file = nil
-    if @album 
-      images = @album.images
-      if !images.blank?
-        file_path = Album.create_archive_path
-        # Create zip file
-        Zip::ZipFile.open(file_path, Zip::ZipFile::CREATE){|z|
-          # Add root directory to zipfile
-          z.mkdir(@album.title)
-          # Fill with images
-          images.each{|image|
-            # Add image inside of root directory
-            z.add(File.join(@album.title, image.img_file_name), 
-                  image.img.path)
-          }
+    images = @album.images
+    files = {} # Dictionary of image path/image id added to the zip file
+    folders = Set.new
+
+    if !images.blank?
+
+      file_path = Album.create_archive_path
+      
+      # Create zip file
+      Zip::ZipFile.open(file_path, Zip::ZipFile::CREATE){|z|
+
+        # Add root directory to zipfile
+        z.mkdir(@album.title)
+
+        # Fill with images
+        images.each{|image|
+          # Calculate image path in zip file
+          folder = File.join(@album.title, image.author_name).capitalize
+          base = File.basename(image.img_file_name, ".*").capitalize
+          ext = File.extname(image.img_file_name).downcase
+          path = File.join(folder, base + ext)
+          index = 0
+          while files.has_key?(path)
+            path = File.join(folder, base + "-#{index}" + ext)
+            index += 1
+          end
+          files[path] = image.id
+
+          # Create folder if necessary
+          z.mkdir(folder) if folders.add?(folder)
+
+          # Add image inside of root directory
+          z.add(path, image.img.path)
         }
-      end
+      }
     end
     file_name = @album.title + ".zip"
     send_file file_path, :type => 'application/zip',
