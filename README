@@ -1,20 +1,3 @@
-== Setup a first rails project with Git
+== Photoroid
 
-rails new .
-git init .
-echo ".*.swp" >> .gitignore
-git add .gitignore
-git commit -m 'Added .gitignore'
-git add app/ config/ config.ru db/ doc/ Gemfile lib/ log/ public/ Rakefile README script/ test/ tmp/ vendor/
-git commit -m 'Initial files'
-bundle install
-# This is for phusion-passenger deployment:
-# bundle install --path vendor/cache
-rake db:migrate
-
-== Create the sandbow application
-
-rails generate model user
-rake db:migrate 
-rake db:test:load
-ruby -Itest test/unit/user_test.rb
+= Install
