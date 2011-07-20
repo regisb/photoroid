@@ -42,12 +42,11 @@ class User < ActiveRecord::Base
       # Define here the list of user emails
       # that you accept in your application
       ####################################### 
-      whitelist = ["regisb@gmail.com", "regis@behmo.com"]
+      whitelist = ["*"]
       ###########################################
       
-      if !whitelist.include?(self.email)
-        errors.add(:email, "Sorry, this email is not authorized to suscribe to this application.")
-      end
+      whitelist.each{|w| return true if self.email == w || w == "*"}
+      errors.add(:email, "Sorry, this email is not authorized to suscribe to this application.")
     end
 
 
