@@ -9,12 +9,17 @@ class Image < ActiveRecord::Base
   def add_exif_tags
     if self.taken_at.nil?
       # Sample date taken EXIF tag from image
-      exif_info = EXIFR::JPEG.new(self.img.path)
-      if exif_info.date_time.nil?
-        # Assign now's time if not found
+      begin
+        exif_info = EXIFR::JPEG.new(self.img.path)
+        if exif_info.date_time.nil?
+          # Assign now's time if not found
+          update_attribute(:taken_at, Time.now)
+        else
+          update_attribute(:taken_at, exif_info.date_time)
+        end
+      rescue
+        # Rescue on crash, for instance whenever the image is not jpg
         update_attribute(:taken_at, Time.now)
-      else
-        update_attribute(:taken_at, exif_info.date_time)
       end
     end
     true
