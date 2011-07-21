@@ -33,5 +33,6 @@ class Image < ActiveRecord::Base
     url = self.img.url(style)
     return url if url.blank?
     url[0] = '' if url[0..0] == "/"
+    return url
   end
 end
