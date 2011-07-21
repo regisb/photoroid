@@ -24,4 +24,14 @@ class Image < ActiveRecord::Base
     end
     true
   end
+
+  # The default paperclip URL methods precedes everything 
+  # with a "/", which does not work whenever we deploy to 
+  # a sub URI. Solution consists in stripping the first 
+  # character if it's a "/"
+  def url(style)
+    url = self.img.url(style)
+    return url if url.blank?
+    url[0] = '' if url[0..0] == "/"
+  end
 end

@@ -1,8 +1,8 @@
 <div class="thumb">
   <div class="image" style="<%= "border: 8px solid #{image_html_color(thumb.author_name)}" %>">
     <span>
-      <%= link_to image_tag(thumb.img.url(:thumb)),
-        thumb.img.url(:medium),
+      <%= link_to image_tag(thumb.img.url(:medium)),
+        thumb.url(:medium),
         :rel => "colorbox" %>
     </span>
   </div>
