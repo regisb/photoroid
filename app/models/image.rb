@@ -7,22 +7,9 @@ class Image < ActiveRecord::Base
   after_save :add_exif_tags
 
   def add_exif_tags
-    if self.taken_at.nil?
-      # Sample date taken EXIF tag from image
-      begin
-        exif_info = EXIFR::JPEG.new(self.img.path)
-        if exif_info.date_time.nil?
-          # Assign now's time if not found
-          update_attribute(:taken_at, Time.now)
-        else
-          update_attribute(:taken_at, exif_info.date_time)
-        end
-      rescue
-        # Rescue on crash, for instance whenever the image is not jpg
-        update_attribute(:taken_at, Time.now)
-      end
-    end
-    true
+    self.taken_at ||= EXIFR::JPEG.new(img.path).date_time rescue Time.now
+    # FIXME: We could get rid of this second save call if this methods was called on before_save
+    self.taken_at.save
   end
 
   # The default paperclip URL methods precedes everything 
