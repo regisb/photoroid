@@ -30,9 +30,8 @@ class Image < ActiveRecord::Base
   # a sub URI. Solution consists in stripping the first 
   # character if it's a "/"
   def url(style)
-    url = self.img.url(style)
+    url = img.url(style)
     return url if url.blank?
-    url[0] = '' if url[0..0] == "/"
-    return url
+    url.starts_with?('/') ? url.gsub(/^\//, '') : url
   end
 end
