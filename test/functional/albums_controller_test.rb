@@ -28,7 +28,8 @@ class AlbumsControllerTest < ActionController::TestCase
 
   test "Display album with invalid secret" do
     get :show, :secret => "abcdefghijklmnopqrstuvwxyz123456"
-    assert_redirected_to "/user"
+    assert_nil assigns(@album)
+    assert_template "album/invalid"
   end
 
   test "Upload images" do
@@ -45,7 +46,12 @@ class AlbumsControllerTest < ActionController::TestCase
 
   test "Destroy album" do
     a = albums(:valid)
-    delete 'destroy', :secret => a.secret
+    # Album is not destroyed while user is not loged in
+    delete 'destroy', :id => a.id
+    assert_not_nil Album.find_by_secret(a.secret)
+    # Album is destroyed as soon as logged in
+    session["user_id"] = a.user_id
+    delete 'destroy', :id => a.id
     assert_nil Album.find_by_secret(a.secret)
   end
 
