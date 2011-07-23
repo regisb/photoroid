@@ -28,8 +28,8 @@ class AlbumsControllerTest < ActionController::TestCase
 
   test "Display album with invalid secret" do
     get :show, :secret => "abcdefghijklmnopqrstuvwxyz123456"
-    assert_nil assigns(@album)
-    assert_template "album/invalid"
+    assert_nil assigns(:album)
+    assert_template "albums/_invalid"
   end
 
   test "Upload images" do
@@ -38,8 +38,11 @@ class AlbumsControllerTest < ActionController::TestCase
     album = albums(:valid)
     image_count = album.images.count
     # Post
-    post :upload_images, 
-      {:album => {:secret => album.secret, :images => [f]}}
+    put :upload_images, 
+      {
+        :album => {:secret => album.secret, :images => [f]},
+        :author_name => "Régis B."
+      }
     assert_redirected_to :controller => "albums", :action => "show", :secret => album.secret
     assert_equal image_count+1, album.images.count, "Number of images in album should have increased by 1"
   end

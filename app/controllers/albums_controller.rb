@@ -6,7 +6,7 @@ class AlbumsController < ApplicationController
   def show
     @album = Album.find_by_secret(params[:secret])
     if @album.nil?
-      render "album/invalid" and return
+      render :partial => "invalid" and return
     end
   end
 
