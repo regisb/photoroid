@@ -7,7 +7,7 @@ class ImageTest < ActiveSupport::TestCase
   
   test "EXIF tags should be written to image" do
     f = File.open("test/fixtures/1up.jpg")
-    image = Image.new
+    image = Image.new(:author_name => "Régis")
     image.img = f
     image.save
 
