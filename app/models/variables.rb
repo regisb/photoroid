@@ -7,6 +7,7 @@ class Variables < ActiveRecord::Base
     var = Variables.find_by_key(key)
     if var.blank?
       var = Variables.new(:key => key, :value => create_value)
+      puts "-------------------- #{key} #{value}"
       var.save
     end
     return var.value

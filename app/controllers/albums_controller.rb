@@ -5,6 +5,9 @@ class AlbumsController < ApplicationController
 
   def show
     @album = Album.find_by_secret(params[:secret])
+    if @album.nil?
+      render :partial => "invalid" and return
+    end
   end
 
   def new
@@ -50,7 +53,7 @@ class AlbumsController < ApplicationController
   end
 
   def destroy
-    current_user.albums.find(params[:id]).destroy
+    current_user.albums.find(params[:id]).destroy unless current_user.blank?
     redirect_to :controller => :albums, :action => :index
   end
 
