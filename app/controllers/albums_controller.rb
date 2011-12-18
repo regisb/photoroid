@@ -58,7 +58,6 @@ class AlbumsController < ApplicationController
   end
 
   def download
-
     @album = Album.find_by_secret(params[:secret])
     file_path = nil
     tmp_file = nil
@@ -84,6 +83,7 @@ class AlbumsController < ApplicationController
           ext = File.extname(image.img_file_name).downcase
           path = File.join(folder, base + ext)
           index = 0
+          # Increment path index if path already exists
           while files.has_key?(path)
             path = File.join(folder, base + "-#{index}" + ext)
             index += 1
@@ -95,13 +95,14 @@ class AlbumsController < ApplicationController
 
           # Add image inside of root directory
           z.add(path, image.img.path)
-        }
-      }
-    end
+        }# images.each{|image|
+      }#  Zip::ZipFile.open(file_path, Zip::ZipFile::CREATE){|z|
+    end # if !images.blank?
     file_name = @album.title + ".zip"
     send_file file_path, :type => 'application/zip',
       :disposition => 'attachment',
       :filename => file_name 
+    # Delete file, now useless
     File.delete(file_path)
   end
 end
