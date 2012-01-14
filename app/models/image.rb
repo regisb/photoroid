@@ -10,10 +10,20 @@ class Image < ActiveRecord::Base
     return unless self.taken_at.nil?
     begin
       exif = EXIFR::JPEG.new(self.img.path)
+      # Date
       if exif && exif.date_time
         update_attribute(:taken_at, exif.date_time)
       else
         update_attribute(:taken_at, Time.now)
+      end
+      # Orientation
+      if exif && exif.orientation
+        case exif.orientation.to_i()
+        when 6; update_attribute(:orientation, 90)
+          # TODO complete that with other values
+        else
+          0
+        end
       end
     rescue
       update_attribute(:taken_at, Time.now)
