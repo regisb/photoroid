@@ -14,11 +14,4 @@ class ImageTest < ActiveSupport::TestCase
     assert_not_nil image.taken_at
   end
 
-  test "EXIF orientation tag should be written to image" do
-    f = File.open("test/fixtures/vertical.jpg")
-    image = Image.new(:author_name => "Régis")
-    image.img = f
-    image.save
-    assert_equal 90, image.orientation
-  end
 end

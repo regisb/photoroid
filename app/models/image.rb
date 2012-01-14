@@ -7,8 +7,8 @@ class Image < ActiveRecord::Base
   after_save :add_exif_tags
 
   def add_exif_tags
-    return unless self.taken_at.nil?
-    begin
+    return unless self.taken_at.nil? # what follows is performed only once
+    #begin
       exif = EXIFR::JPEG.new(self.img.path)
       # Date
       if exif && exif.date_time
@@ -16,18 +16,13 @@ class Image < ActiveRecord::Base
       else
         update_attribute(:taken_at, Time.now)
       end
-      # Orientation
-      if exif && exif.orientation
-        case exif.orientation.to_i()
-        when 6; update_attribute(:orientation, 90)
-          # TODO complete that with other values
-        else
-          0
-        end
-      end
-    rescue
-      update_attribute(:taken_at, Time.now)
-    end
+      # Rotate thumbnail and medium image
+      `mogrify -auto-orient #{self.img.path(:medium)}`
+      `mogrify -auto-orient #{self.img.path(:thumb)}`
+ #   rescue
+      #puts "Catch error!"
+      #update_attribute(:taken_at, Time.now)
+ #   end
   end
 
   # The default paperclip URL methods precedes everything 

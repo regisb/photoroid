@@ -3,6 +3,10 @@
 $(document).ready(
   function()
   {
-    $("a[rel='colorbox']").colorbox({transition:"none", width:"75%", height:"90%"});
+    $("a[rel='colorbox']").colorbox({
+      transition:"none", 
+      width:"75%", 
+      height:"90%"
+    });
   }
 );
