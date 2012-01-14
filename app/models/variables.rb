@@ -7,7 +7,7 @@ class Variables < ActiveRecord::Base
     var = Variables.find_by_key(key)
     if var.blank?
       var = Variables.new(:key => key, :value => create_value)
-      puts "-------------------- #{key} #{value}"
+      puts "-------------------- #{key} #{var.value}"
       var.save
     end
     return var.value
@@ -15,7 +15,6 @@ class Variables < ActiveRecord::Base
 
   protected
   def self.create_value
-    allowed = [('a'..'z'),('A'..'Z'),('0'..'9')].map{|i| i.to_a}.flatten
-    return (0...64).map{ allowed[rand(allowed.length)]  }.join
+    ActiveSupport::SecureRandom.hex(64)
   end
 end

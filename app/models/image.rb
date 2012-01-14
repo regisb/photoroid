@@ -7,22 +7,22 @@ class Image < ActiveRecord::Base
   after_save :add_exif_tags
 
   def add_exif_tags
-    if self.taken_at.nil?
-      # Sample date taken EXIF tag from image
-      begin
-        exif_info = EXIFR::JPEG.new(self.img.path)
-        if exif_info.date_time.nil?
-          # Assign now's time if not found
-          update_attribute(:taken_at, Time.now)
-        else
-          update_attribute(:taken_at, exif_info.date_time)
-        end
-      rescue
-        # Rescue on crash, for instance whenever the image is not jpg
+    return unless self.taken_at.nil? # what follows is performed only once
+    #begin
+      exif = EXIFR::JPEG.new(self.img.path)
+      # Date
+      if exif && exif.date_time
+        update_attribute(:taken_at, exif.date_time)
+      else
         update_attribute(:taken_at, Time.now)
       end
-    end
-    true
+      # Rotate thumbnail and medium image
+      `mogrify -auto-orient #{self.img.path(:medium)}`
+      `mogrify -auto-orient #{self.img.path(:thumb)}`
+ #   rescue
+      #puts "Catch error!"
+      #update_attribute(:taken_at, Time.now)
+ #   end
   end
 
   # The default paperclip URL methods precedes everything 
@@ -30,9 +30,8 @@ class Image < ActiveRecord::Base
   # a sub URI. Solution consists in stripping the first 
   # character if it's a "/"
   def url(style)
-    url = self.img.url(style)
+    url = img.url(style)
     return url if url.blank?
-    url[0] = '' if url[0..0] == "/"
-    return url
+    url.starts_with?('/') ? url.gsub(/^\//, '') : url
   end
 end
