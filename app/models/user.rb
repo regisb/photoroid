@@ -42,7 +42,7 @@ class User < ActiveRecord::Base
       # Define here the list of user emails
       # that you accept in your application
       ####################################### 
-      whitelist = ["*"]
+      whitelist = ["regis@behmo.com"]
       ###########################################
       
       whitelist.each{|w| return true if self.email == w || w == "*"}
