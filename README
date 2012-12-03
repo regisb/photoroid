@@ -24,6 +24,10 @@ Install
 
 Now head over at http://0.0.0.0:3000 to see the application in action.
 
+You might want to limit album creation to certain users. To do so, edit the
+app/models/user.rb file and add the authorized email addresses to the
+whitelist. Not very intuitive, but it works.
+
 Limitations
 -----------
 
@@ -34,9 +38,19 @@ Photoroid currently misses some important features:
 - The GUI is awful.
 - Image display is synchronous, so that albums that contain many images may
   take a long time to load.
+- Zip file archives are never deleted.
+- Zip file archives are re-created every time a user clicks on "Download album".
+- Password reset links do not expire.
+- Image may be displayed with the wrong orientation.
 
-License
--------
+Photoroid is not a finished application yet, but I decided to release it
+because 1) It works 2) It would greatly benefit from exterior comments.
 
-Photoroid is distributed under the Apache License, Version 2.0 (see LICENSE
-file).
+Open Source
+-----------
+
+I am mightily open to contributions! This code is copyrighted under the terms
+of the Apache License, v2.0</a> and I would be glad to add your name to the
+list of contributors. In particular, I am looking forward to comments on my
+Rails code and contributions from web designer to improve the CSS and the
+general layout of the application.
