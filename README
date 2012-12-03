@@ -1,3 +1,42 @@
-== Photoroid
+Photoroid
+---------
 
-= Install
+Photoroid is a dead-simple web application for sharing pictures. It was
+designed to be used by non-advanced users. Photoroid has the following features
+that set it appart from other solutions such as Piwigo, Flickr, Dropbox or
+Picasa.
+
+- Album sharing through private URLs.
+- No account creation required for non-album administrators.
+- No desktop application required.
+- One-click album download.
+- No space limitation, since you can host it on your own server.
+
+More information and screenshots available at
+http://minutebutterfly.de/photoroid
+
+Install
+-------
+
+  git clone https://github.com/regisb/photoroid.git && cd photoroid
+  bundle install --path vendor/cache && rake db:migrate
+  rails server
+
+Now head over at http://0.0.0.0:3000 to see the application in action.
+
+Limitations
+-----------
+
+Photoroid currently misses some important features:
+
+- Album download seems to be broken on Windows whenever the album name contains
+  non ASCII characters.
+- The GUI is awful.
+- Image display is synchronous, so that albums that contain many images may
+  take a long time to load.
+
+License
+-------
+
+Photoroid is distributed under the Apache License, Version 2.0 (see LICENSE
+file).
